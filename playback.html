@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Playback Session — Naivira</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    main {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 16px;
+      font-weight: bold;
+    }
+    select, input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 6px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    .button-row {
+      margin-top: 24px;
+      display: flex;
+      justify-content: space-between;
+    }
+    button {
+      padding: 10px 18px;
+      border-radius: 10px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <h1>Customize Your Session</h1>
+  </header>
+
+  <main>
+    <label for="voiceSelect">Choose Voice</label>
+    <select id="voiceSelect">
+      <option value="audio/voices/man1.mp3">Masculine Voice</option>
+      <option value="audio/voices/woman1.mp3">Feminine Voice</option>
+    </select>
+
+    <label for="bgSelect">Background Soundscape</label>
+    <select id="bgSelect">
+      <option value="audio/backgrounds/forest.mp3">Forest</option>
+      <option value="audio/backgrounds/ocean.mp3">Ocean</option>
+      <option value="audio/backgrounds/fire.mp3">Fire</option>
+    </select>
+
+    <label for="durationInput">Loop Duration (minutes)</label>
+    <input type="number" id="durationInput" value="30" min="1" max="120" />
+
+    <div class="button-row">
+      <button onclick="startPlayback()">Start</button>
+      <button onclick="stopMeditation()">Stop</button>
+    </div>
+  </main>
+
+  <script src="meditations.js"></script>
+  <script>
+    function startPlayback() {
+      const voiceSrc = document.getElementById('voiceSelect').value;
+      const bgSrc = document.getElementById('bgSelect').value;
+      const duration = parseInt(document.getElementById('durationInput').value, 10);
+
+      startMeditationSession(voiceSrc, bgSrc, duration);
+    }
+  </script>
+</body>
+</html>
