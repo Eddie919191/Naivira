@@ -1,6 +1,5 @@
 // meditations.js — Audio Layer Engine for Naivira 🌱
 
-// DOM Audio Elements
 const voiceAudio = new Audio();
 const backgroundAudio = new Audio();
 let fadeOutInterval = null;
@@ -28,10 +27,10 @@ function startMeditationSession(voiceSrc, bgSrc, durationMins = 30) {
   setTimeout(() => beginFadeOut(), fadeStart);
 }
 
-// 🌀 Fade background gently over 60 seconds
+// Fade background gently over 60 seconds
 function beginFadeOut() {
   const step = 0.01;
-  const interval = 100; // ms
+  const interval = 100;
   fadeOutInterval = setInterval(() => {
     if (backgroundAudio.volume > step) {
       backgroundAudio.volume -= step;
@@ -43,7 +42,7 @@ function beginFadeOut() {
   }, interval);
 }
 
-// 🧹 Stop all sounds and reset
+// Stop all sounds and reset
 function clearExistingAudio() {
   [voiceAudio, backgroundAudio].forEach(audio => {
     audio.pause();
@@ -55,16 +54,13 @@ function clearExistingAudio() {
   }
 }
 
-// 🌿 Triggered from UI panel selections
-function startMeditationFromUI() {
-  const voice = document.getElementById("voice-choice").value;
-  const bg = document.getElementById("bg-choice").value;
-  const duration = parseInt(document.getElementById("loop-duration").value, 10) || 30;
-
-  startMeditationSession(`audio/${voice}`, `audio/${bg}`, duration);
+// Triggered by UI button
+function startMeditation() {
+  const duration = parseInt(document.getElementById("loop-duration").value, 10);
+  startMeditationSession("audio/voice/BuiltFroThePulse.m4a", "audio/soundscape/RainLoop.mp3", duration);
 }
 
-// Optional manual stop button
 function stopMeditation() {
   clearExistingAudio();
 }
+
