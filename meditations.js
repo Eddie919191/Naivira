@@ -28,7 +28,7 @@ function startMeditationSession(voiceSrc, bgSrc, durationMins = 30) {
   setTimeout(() => beginFadeOut(), fadeStart);
 }
 
-// Fade background gently over 60 seconds
+// 🌀 Fade background gently over 60 seconds
 function beginFadeOut() {
   const step = 0.01;
   const interval = 100; // ms
@@ -43,7 +43,7 @@ function beginFadeOut() {
   }, interval);
 }
 
-// Stop all sounds and reset
+// 🧹 Stop all sounds and reset
 function clearExistingAudio() {
   [voiceAudio, backgroundAudio].forEach(audio => {
     audio.pause();
@@ -53,4 +53,18 @@ function clearExistingAudio() {
     clearInterval(fadeOutInterval);
     fadeOutInterval = null;
   }
+}
+
+// 🌿 Triggered from UI panel selections
+function startMeditationFromUI() {
+  const voice = document.getElementById("voice-choice").value;
+  const bg = document.getElementById("bg-choice").value;
+  const duration = parseInt(document.getElementById("loop-duration").value, 10) || 30;
+
+  startMeditationSession(`audio/${voice}`, `audio/${bg}`, duration);
+}
+
+// Optional manual stop button
+function stopMeditation() {
+  clearExistingAudio();
 }
