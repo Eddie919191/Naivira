@@ -2,71 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Naivira</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Naivira — Welcome</title>
   <link rel="stylesheet" href="styles.css" />
-  <script defer src="auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="firebase.js" defer></script>
+  <script src="auth.js" defer></script>
 </head>
 <body>
-  <!-- Landing Page (Login/Register) -->
-  <section id="auth-section">
-    <h1 class="center">Naivira</h1>
-    <div class="auth-box">
-      <input type="text" id="username" placeholder="Username" />
+  <main class="login-container">
+    <h1>Welcome to Naivira</h1>
+    <div class="login-form">
+      <input type="email" id="email" placeholder="Email" />
       <input type="password" id="password" placeholder="Password" />
-      <button onclick="loginUser()">Login</button>
-      <button onclick="registerUser()">Register</button>
+      <div class="login-buttons">
+        <button onclick="login()">Login</button>
+        <button onclick="register()">Register</button>
+      </div>
     </div>
-  </section>
-
-  <!-- Main App Interface -->
-  <section id="main-section" class="hidden">
-    <header class="navbar">
-      <h1>Naivira</h1>
-      <nav>
-        <button onclick="switchTab('meditate')">Meditate</button>
-        <button onclick="switchTab('chat')">Chat</button>
-        <button onclick="logoutUser()">Logout</button>
-      </nav>
-    </header>
-
-    <main>
-      <!-- Meditate Tab: Topic Selection & Playback -->
-      <section id="meditate-tab" class="tab">
-        <div id="meditation-topic-list"></div>
-        <div id="meditation-playback" class="hidden">
-          <h3 id="selected-subtopic"></h3>
-          <label>Voice:</label>
-          <select id="voice-choice">
-            <option value="man">Man</option>
-            <option value="woman">Woman</option>
-          </select>
-          <label>Soundscape:</label>
-          <select id="soundscape-choice">
-            <option value="forest">Forest</option>
-            <option value="ocean">Ocean</option>
-            <option value="rain">Rain</option>
-          </select>
-          <label>Loop Duration (min):</label>
-          <input type="number" id="loop-duration" value="30" min="5" max="90" />
-          <button onclick="startMeditation()">Play</button>
-          <button onclick="stopMeditation()">Stop</button>
-        </div>
-      </section>
-
-      <!-- Chat Tab -->
-      <section id="chat-tab" class="tab hidden">
-        <div id="scroll-container"></div>
-        <div id="chatbox"></div>
-        <textarea id="userInput" placeholder="Ask or reflect..."></textarea>
-        <button onclick="sendMessage()">Send</button>
-      </section>
-    </main>
-  </section>
-
-  <script src="naivira-chat.js"></script>
-  <script src="scrollVault.js"></script>
-  <script src="meditations.js"></script>
-  <script src="meditation-ui.js"></script>
+  </main>
 </body>
 </html>
