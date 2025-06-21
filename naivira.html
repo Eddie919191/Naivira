@@ -20,17 +20,31 @@
     <!-- Meditate Tab -->
     <section id="meditate-tab" class="tab">
       <h2>Meditation</h2>
-      <div id="audio-controls">
-        <label>Voice Audio:</label>
-        <input type="file" accept="audio/*" id="voice-audio" />
-        <label>Background Loop:</label>
-        <input type="file" accept="audio/*" id="bg-audio" />
+      <div id="meditation-topics"></div>
+    
+      <div id="playback-panel" class="hidden">
+        <h3 id="selected-topic">Selected Topic</h3>
+        <label>Voice Type:</label>
+        <select id="voice-choice">
+          <option value="voice-male.mp3">Male Voice</option>
+          <option value="voice-female.mp3">Female Voice</option>
+        </select>
+    
+        <label>Background Sound:</label>
+        <select id="bg-choice">
+          <option value="forest.mp3">Forest</option>
+          <option value="waves.mp3">Ocean</option>
+          <option value="rain.mp3">Rain</option>
+        </select>
+    
         <label>Loop Duration (min):</label>
         <input type="number" id="loop-duration" value="30" min="1" max="120" />
-        <button onclick="startMeditation()">Start Meditation</button>
+    
+        <button onclick="startMeditationFromUI()">Start</button>
         <button onclick="stopMeditation()">Stop</button>
       </div>
     </section>
+
 
     <!-- Chat Tab -->
     <section id="chat-tab" class="tab hidden">
