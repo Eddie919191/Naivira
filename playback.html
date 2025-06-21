@@ -43,21 +43,17 @@
   </header>
 
   <main>
-    <label for="voiceSelect">Choose Voice</label>
-    <select id="voiceSelect">
-      <option value="audio/voices/man1.mp3">Masculine Voice</option>
-      <option value="audio/voices/woman1.mp3">Feminine Voice</option>
-    </select>
+    <p id="topicTitle" style="font-size: 1.2em; font-weight: bold;"></p>
 
     <label for="bgSelect">Background Soundscape</label>
     <select id="bgSelect">
-      <option value="audio/backgrounds/forest.mp3">Forest</option>
-      <option value="audio/backgrounds/ocean.mp3">Ocean</option>
-      <option value="audio/backgrounds/fire.mp3">Fire</option>
+      <option value="audio/soundscape/RainLoop.mp3">Rain Loop</option>
+      <option value="audio/soundscape/RiverWaves.mp3">River Waves</option>
+      <option value="audio/soundscape/GongFade.mp3">Gong Fade</option>
     </select>
 
     <label for="durationInput">Loop Duration (minutes)</label>
-    <input type="number" id="durationInput" value="30" min="1" max="120" />
+    <input type="number" id="durationInput" value="30" min="26" max="120" />
 
     <div class="button-row">
       <button onclick="startPlayback()">Start</button>
@@ -67,12 +63,21 @@
 
   <script src="meditations.js"></script>
   <script>
-    function startPlayback() {
-      const voiceSrc = document.getElementById('voiceSelect').value;
-      const bgSrc = document.getElementById('bgSelect').value;
-      const duration = parseInt(document.getElementById('durationInput').value, 10);
+    // Get topic from URL
+    const params = new URLSearchParams(window.location.search);
+    const topic = params.get('topic');
 
-      startMeditationSession(voiceSrc, bgSrc, duration);
+    const voicePath = `audio/voice/${topic}.m4a`;
+    const topicTitle = topic
+      ? topic.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
+      : 'Unknown Topic';
+
+    document.getElementById('topicTitle').textContent = topicTitle;
+
+    function startPlayback() {
+      const bgSrc = document.getElementById('bgSelect').value;
+      const duration = Math.max(26, parseInt(document.getElementById('durationInput').value, 10));
+      startMeditationSession(voicePath, bgSrc, duration);
     }
   </script>
 </body>
