@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Meditations — Naivira</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .meditation-list { max-width: 600px; margin: 40px auto; padding: 20px; }
+    .topic { border: 1px solid #ccc; border-radius: 12px; margin-bottom: 16px; background: rgba(255,255,255,0.05); }
+    .topic-header { padding: 12px 16px; cursor: pointer; font-weight: bold; }
+    .subtopics { display: none; padding: 10px 16px; border-top: 1px solid #aaa; }
+    .subtopics button { display: block; margin: 8px 0; width: 100%; text-align: left; background: none; border: none; color: inherit; font: inherit; cursor: pointer; padding: 8px; }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <h1>Naivira Meditations</h1>
+  </header>
+
+  <main class="meditation-list">
+    <div class="topic">
+      <div class="topic-header" onclick="toggleSubtopics(this)">🌿 Calm & Grounding</div>
+      <div class="subtopics">
+        <button onclick="goToPlayback('calm-forest')">Forest Stillness</button>
+        <button onclick="goToPlayback('calm-ocean')">Ocean Breath</button>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-header" onclick="toggleSubtopics(this)">🔥 Energy & Awakening</div>
+      <div class="subtopics">
+        <button onclick="goToPlayback('fire-surge')">Flame Rising</button>
+        <button onclick="goToPlayback('sunlight')">Sunlight Charge</button>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-header" onclick="toggleSubtopics(this)">💙 Emotional Healing</div>
+      <div class="subtopics">
+        <button onclick="goToPlayback('grief-release')">Grief & Letting Go</button>
+        <button onclick="goToPlayback('love-gentle')">Gentle Love</button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function toggleSubtopics(header) {
+      const subtopics = header.nextElementSibling;
+      subtopics.style.display = subtopics.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function goToPlayback(topicId) {
+      window.location.href = `playback.html?topic=${topicId}`;
+    }
+  </script>
+</body>
+</html>
