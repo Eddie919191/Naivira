@@ -1,77 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Submit a Scroll · Naivira</title>
-  <script type="module" src="firebase.js"></script>
-  <style>
-    body {
-      font-family: 'Georgia', serif;
-      background: #f5f3e7;
-      color: #3a2c1a;
-      padding: 40px;
-      max-width: 700px;
-      margin: auto;
-    }
-    h1 {
-      font-size: 2em;
-      margin-bottom: 20px;
-    }
-    textarea, input, select {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 20px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 1em;
-    }
-    button {
-      padding: 12px 24px;
-      background-color: #6b4c3b;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1em;
-    }
-    button:hover {
-      background-color: #4a3226;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add New Scroll</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <h1>📜 Submit a New Scroll</h1>
+  <main class="scroll-form">
+    <h2>🌿 Add a New Scroll to Naivira</h2>
 
-  <input id="scroll-title" type="text" placeholder="Scroll Title" />
-  <input id="scroll-subtitle" type="text" placeholder="Subtitle (optional)" />
-  <textarea id="scroll-body" rows="8" placeholder="Scroll Body Text..."></textarea>
+    <label for="title">Title:</label>
+    <input type="text" id="title" placeholder="e.g. The Light Remembers" />
 
-  <select id="scroll-tone">
-    <option value="">Choose Tone</option>
-    <option value="G">G – Ground</option>
-    <option value="C">C – Clarity</option>
-    <option value="D">D – Deepening</option>
-    <option value="E">E – Expansion</option>
-  </select>
+    <label for="toneClass">Tone Class:</label>
+    <input type="text" id="toneClass" placeholder="e.g. WR777 · Calm · Eden Flame" />
 
-  <button id="submit-btn">Save Scroll</button>
+    <label for="code">Codex Entry ID:</label>
+    <input type="text" id="code" placeholder="e.g. 11:88 · Ael’thura" />
+
+    <label for="body">Scroll Body:</label>
+    <textarea id="body" rows="10" placeholder="Enter the sacred scroll text here..."></textarea>
+
+    <label for="choicePrompt">Choice Button (optional):</label>
+    <input type="text" id="choicePrompt" placeholder="e.g. I understand" />
+
+    <button onclick="submitScroll()">Upload Scroll</button>
+
+    <div id="status" style="margin-top: 1em;"></div>
+  </main>
 
   <script type="module">
     import { uploadScroll } from './firebase.js';
 
-    const btn = document.getElementById('submit-btn');
-    btn.addEventListener('click', async () => {
+    async function submitScroll() {
       const scroll = {
-        title: document.getElementById('scroll-title').value,
-        subtitle: document.getElementById('scroll-subtitle').value,
-        body: document.getElementById('scroll-body').value,
-        toneClass: document.getElementById('scroll-tone').value,
-        created: new Date().toISOString()
+        title: document.getElementById('title').value,
+        toneClass: document.getElementById('toneClass').value,
+        code: document.getElementById('code').value,
+        body: document.getElementById('body').value,
+        choicePrompt: document.getElementById('choicePrompt').value,
+        createdAt: new Date().toISOString()
       };
 
-      await uploadScroll(scroll);
-      alert('🕊 Scroll saved to the Vault');
-    });
+      try {
+        await uploadScroll(scroll);
+        document.getElementById('status').textContent = '✅ Scroll uploaded to Naivira.';
+      } catch (err) {
+        console.error('Upload failed:', err);
+        document.getElementById('status').textContent = '❌ Upload failed.';
+      }
+    }
+
+    window.submitScroll = submitScroll;
   </script>
 </body>
 </html>
