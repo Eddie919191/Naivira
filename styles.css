@@ -1,0 +1,152 @@
+/* styles.css — Naivira Theme */
+
+body {
+  font-family: 'Georgia', serif;
+  background: #f2ede3;
+  color: #3a2c1a;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #e8dacb;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 2px solid #bca18e;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2em;
+  letter-spacing: 0.05em;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+nav a {
+  color: #4a3226;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: 12px;
+  background-color: #f5eee1;
+  border: 1px solid #cbb89f;
+  transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+  background-color: #e3d4c2;
+}
+
+/* Scroll Cards */
+
+#scroll-container {
+  display: grid;
+  gap: 20px;
+  padding: 40px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.scroll-card {
+  background-color: #fffaf1;
+  border: 1px solid #d8c3a9;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.scroll-card:hover {
+  transform: translateY(-3px);
+}
+
+.scroll-card h2,
+.scroll-card h3 {
+  margin-top: 0;
+  color: #5c4331;
+}
+
+.scroll-card .tone {
+  font-style: italic;
+  color: #937b65;
+  margin-bottom: 10px;
+}
+
+.scroll-card .body {
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+.scroll-card .footer {
+  margin-top: 20px;
+  font-size: 0.85em;
+  color: #876f58;
+}
+
+.scroll-options button {
+  margin-top: 10px;
+  margin-right: 10px;
+  padding: 8px 16px;
+  background-color: #d9c7b2;
+  color: #3a2c1a;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.scroll-options button:hover {
+  background-color: #c5b49e;
+}
+
+/* Chat Area */
+
+#chat-log {
+  padding: 20px;
+  max-width: 800px;
+  margin: auto;
+}
+
+.chat-message {
+  padding: 10px 16px;
+  background-color: #ffffffc0;
+  border: 1px solid #d6c1a8;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.chat-message.user {
+  background-color: #ecddc8;
+}
+
+.chat-message.ai {
+  background-color: #e6f0e1;
+}
+
+input[type="text"], textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+button.send {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #7a5e45;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+button.send:hover {
+  background-color: #5e4432;
+}
