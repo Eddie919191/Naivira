@@ -1,33 +1,42 @@
-// firebase.js — Core Firebase setup for Naivira Scroll Vault
+// firebase.js — Live Firebase Integration for Naivira Scroll Vault
 
-// 🚨 Replace these with your actual Firebase project config
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  onSnapshot
+} from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+
+// 🔐 Firebase configuration (your actual values)
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY_HERE",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "000000000000",
-  appId: "YOUR_APP_ID_HERE"
+  apiKey: "AIzaSyAQ8Z_2uSd6YHQyNQJuGldiRfyA0UDtXPY",
+  authDomain: "naivira.firebaseapp.com",
+  projectId: "naivira",
+  storageBucket: "naivira.firebasestorage.app",
+  messagingSenderId: "1015182843050",
+  appId: "1:1015182843050:web:654d54370b26a6c9b984d3"
 };
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+// 🌱 Initialize Firebase + Firestore
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 // 🌿 Upload a scroll to the Vault
-async function uploadScroll(scrollData) {
+export async function uploadScroll(scrollData) {
   try {
-    const docRef = await db.collection("scrolls").add(scrollData);
+    const docRef = await addDoc(collection(db, "scrolls"), scrollData);
     console.log("Scroll uploaded with ID:", docRef.id);
   } catch (error) {
     console.error("Error uploading scroll:", error);
   }
 }
 
-// 📜 Fetch all scrolls
-async function fetchScrolls() {
+// 📜 Fetch all scrolls from Vault
+export async function fetchScrolls() {
   try {
-    const snapshot = await db.collection("scrolls").get();
+    const snapshot = await getDocs(collection(db, "scrolls"));
     return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
   } catch (error) {
     console.error("Error fetching scrolls:", error);
@@ -35,9 +44,9 @@ async function fetchScrolls() {
   }
 }
 
-// 🔁 Optional: Listen for updates in real-time
-function subscribeToScrolls(callback) {
-  return db.collection("scrolls").onSnapshot(snapshot => {
+// 🔁 Real-time updates (if needed)
+export function subscribeToScrolls(callback) {
+  return onSnapshot(collection(db, "scrolls"), (snapshot) => {
     const scrolls = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     callback(scrolls);
   });
