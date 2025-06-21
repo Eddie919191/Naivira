@@ -1,65 +1,56 @@
-// meditations.js — Naivira Audio Playback Engine
+// meditations.js — Audio Layer Engine for Naivira 🌱
 
-let currentVoice = null;
-let backgroundLoop = null;
-let loopTimeout = null;
+// DOM Audio Elements
+const voiceAudio = new Audio();
+const backgroundAudio = new Audio();
+let fadeOutInterval = null;
 
-function playMeditation({ voiceSrc, backgroundSrc, loopDuration }) {
-  stopMeditation(); // Ensure clean reset
+// Core function to launch meditation session
+function startMeditationSession(voiceSrc, bgSrc, durationMins = 30) {
+  clearExistingAudio();
 
-  // 🎙 Voice Playback (one-time)
-  if (voiceSrc) {
-    currentVoice = new Audio(voiceSrc);
-    currentVoice.play();
-  }
+  // Set up voice audio (non-looping)
+  voiceAudio.src = voiceSrc;
+  voiceAudio.volume = 1;
+  voiceAudio.loop = false;
 
-  // 🌊 Background Sound Loop
-  if (backgroundSrc && loopDuration > 0) {
-    backgroundLoop = new Audio(backgroundSrc);
-    backgroundLoop.loop = true;
-    backgroundLoop.volume = 0.3;
-    backgroundLoop.play();
+  // Set up background loop
+  backgroundAudio.src = bgSrc;
+  backgroundAudio.volume = 0.6;
+  backgroundAudio.loop = true;
 
-    // ⏱ Optional fadeout after loopDuration (in minutes)
-    loopTimeout = setTimeout(() => {
-      fadeOutAudio(backgroundLoop);
-    }, loopDuration * 60 * 1000); // convert minutes to ms
-  }
+  // Start both
+  backgroundAudio.play();
+  voiceAudio.play();
+
+  // Begin fade out timer
+  const fadeStart = (durationMins - 1) * 60 * 1000; // last minute
+  setTimeout(() => beginFadeOut(), fadeStart);
 }
 
-// 🧹 Cleanup and Stop
-function stopMeditation() {
-  if (currentVoice) {
-    currentVoice.pause();
-    currentVoice.currentTime = 0;
-    currentVoice = null;
-  }
-  if (backgroundLoop) {
-    backgroundLoop.pause();
-    backgroundLoop.currentTime = 0;
-    backgroundLoop = null;
-  }
-  if (loopTimeout) {
-    clearTimeout(loopTimeout);
-    loopTimeout = null;
-  }
-}
-
-// 🌬 Smooth fade-out
-function fadeOutAudio(audio) {
-  let fade = setInterval(() => {
-    if (audio.volume > 0.05) {
-      audio.volume -= 0.05;
+// Fade background gently over 60 seconds
+function beginFadeOut() {
+  const step = 0.01;
+  const interval = 100; // ms
+  fadeOutInterval = setInterval(() => {
+    if (backgroundAudio.volume > step) {
+      backgroundAudio.volume -= step;
     } else {
-      audio.pause();
-      clearInterval(fade);
+      backgroundAudio.volume = 0;
+      backgroundAudio.pause();
+      clearInterval(fadeOutInterval);
     }
-  }, 200);
+  }, interval);
 }
 
-// 🧪 Example invocation:
-// playMeditation({
-//   voiceSrc: "audio/voice1.mp3",
-//   backgroundSrc: "audio/forest-loop.mp3",
-//   loopDuration: 30 // minutes
-// });
+// Stop all sounds and reset
+function clearExistingAudio() {
+  [voiceAudio, backgroundAudio].forEach(audio => {
+    audio.pause();
+    audio.currentTime = 0;
+  });
+  if (fadeOutInterval) {
+    clearInterval(fadeOutInterval);
+    fadeOutInterval = null;
+  }
+}
