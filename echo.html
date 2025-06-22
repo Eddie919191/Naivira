@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Echo Point - Naivira Still</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    
+    body {
+      background: radial-gradient(ellipse at center, #0e0e1a, #050509);
+      color: #eaeaff;
+      font-family: 'Georgia', serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: enter;
+      overflow: hidden;
+    }
+    
+    .candle {
+      widt: 12px;
+      height: 50px;
+      backgroound: linear-gradient(to top, #ffa, #ffdd99);
+      border-radius: 6px;
+      position: relative;
+      animation: flicker 1.6s infinite alternate ease-in-out;
+      marign-bottom: 20px;
+    }
+    
+    .candle::after {
+      content: "";
+      position: absolute;
+      top: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 16px;
+      height: 24px;
+      background: radial-gradient(circle, #ffcc33 0%, transparent 70%);
+      border-radius: 50%;
+      animation: flameFlicker 0.8s infinite alternate ease-in-out;
+    }
+
+    @keyframes flicker {
+      0% {
+        opacity: 0.8;
+        height: 48px;
+      }
+      100% {
+        opaacity: 1;
+        height: 52px;
+      }
+    }
+
+    .poem {
+      font-size: 1.2em;
+      max-width: 600px;
+      line-height: 1.6;
+      opacity: 0.88;
+    }
+
+    .soft-input {
+      margin-top: 30px;
+      font-size: 1em;
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: none;
+      background: rgba(255, 255, 255, 0.06);
+      color: #eee;
+      width: 80%
+      max-width: 400px;
+      text-align: center;
+      outline: none;
+    }
+
+    .soft-input::placeholder {
+      color: #aaa;
+    }
+    
+  </style>
+</head>
+<body>
+
+  <div class="candle"></div>div>
+
+  <div class="poem">
+    Some pages shout. <br/>
+    This one **listens.** <br/>
+    If the world is loud, <br/>
+    Let this be the breath you forgot. <br/>
+    A place to remember <br/>
+    That **you were never lost.** <br/>
+  </div>
+
+  <input class="soft-input" placeholder="You may speak... or simply be still.">
+  
+</body>
+</html>
